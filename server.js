@@ -11,6 +11,7 @@ require('./config/database')
 // Controllers 
 
 const authController = require("./controllers/auth.js");
+const recipesController = require("./controllers/recipes.js");
 
 const app = express();
 
@@ -52,15 +53,5 @@ app.get("/", async (req, res) => {
     res.render("index.ejs");
 });
 
-// Protected Routes
-
-app.use(isSignedIn);
-
-app.get("/vip-lounge", (req, res) => {
-    if (req.session.user) {
-        res.send(`Welcome to the party ${req.session.user.username}.`);
-    } else {
-        res.sendStatus(404);
-        // res.send("Sorry, no guests allowed.");
-    }
-});
+// Recipes Routes
+app.use('/recipes', isSignedIn, recipesController)
