@@ -12,9 +12,11 @@ const recipeSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
-    ingredients: {
-        type: mongoose.Schema.Types.ObjectId,
-    },
+    ingredients: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+        }
+    ],
 });
 
 const Recipe = mongoose.model("Recipe", recipeSchema);
