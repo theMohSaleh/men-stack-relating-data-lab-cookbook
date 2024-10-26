@@ -14,7 +14,7 @@ router.get("/new", (req, res) => {
     
 });
 
-// POST - create recipe
+// POST - create ingredient
 router.post("/", async (req, res) => {
     res.send("ingrident create post");
     
@@ -33,7 +33,7 @@ router.get("/:ingredientId/edit", (req, res) => {
 });
 
 // PUT - update ingredient
-router.put("/:recipeId", (req, res) => {
+router.put("/:ingredientId", (req, res) => {
     res.send("ingredient update request");
     
 });
