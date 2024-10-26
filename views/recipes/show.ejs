@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../stylesheets/style.css">
+  <title>
+    <%= recipe.name %>
+  </title>
+</head>
+
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+  <div class="show-page-container">
+    <div class="show-img"></div>
+    <div class="show-info-container">
+      <div class="show-header">
+        <h1><%= recipe.name %> recipe</h1>
+      </div>
+      <div class="show-details-container">
+        <h3>Instructions</h3>
+        <p><%= recipe.instructions %></p>
+        <% if (recipe.owner._id.equals(user._id)) { %>
+        <div class="owner-container">
+          <p>Created by you</p>
+          <a href="/recipes/<%= recipe._id %>/edit">Edit</a>
+          <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete recipe</button>
+          </form>
+        </div>
+        <% } else { %>
+        <p>Created by <%= recipe.owner.username %></p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

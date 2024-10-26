@@ -38,6 +38,7 @@ router.post('/sign-up', async (req, res) => {
     // respond back to the browser with created user signed in
     req.session.user = {
         username: newUser.username,
+        _id: newUser._id,
     }
 
     // send user back to home page
@@ -74,6 +75,7 @@ router.post('/sign-in', async (req, res) => {
     // create a session cookie
     req.session.user = {
         username: user.username,
+        _id: user._id,
     }
 
     // send user back to home page

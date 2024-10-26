@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stylesheets/style.css">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="stylesheets/style.css">
+  <title>All recipes</title>
 </head>
+
 <body>
-    
+  <%- include('../partials/_navbar.ejs') %>
+  <div class="index-header">
+    <h1>All Recipes</h1>
+    <a href="/recipes/new">+ Add recipe</a>
+  </div>
+  <div class="card-container">
+    <% recipes.forEach((recipe)=> { %>
+    <a href="/recipes/<%= recipe._id %>">
+      <h4><%= recipe.name %> recipe</h4>
+      <p>Created by <%= recipe.owner.username %></p>
+    </a>
+    <% }) %>
+  </div>
 </body>
+
 </html>

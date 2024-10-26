@@ -154,7 +154,7 @@ button:hover {
 }
 
 .signup-img {
-  background-image: url('https://images.unsplash.com/photo-1600607687486-6cced9976e79');
+  background-image: url('https://cdn5.vectorstock.com/i/1000x1000/69/29/vertical-recipe-card-for-notes-making-about-food-vector-36066929.jpg');
   min-height: 110vh;
   background-size: cover;
   background-repeat: no-repeat;
@@ -164,7 +164,7 @@ button:hover {
 }
 
 .signin-img {
-  background-image: url('https://images.unsplash.com/photo-1479839672679-a46483c0e7c8');
+  background-image: url('https://thegingeredwhisk.com/wp-content/uploads/2014/10/Sourdough-Croissant-36-683x1024.jpg');
   min-height: 110vh;
   background-size: cover;
   background-repeat: no-repeat;
@@ -273,7 +273,7 @@ a>h4 {
 }
 
 .show-img {
-  background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d');
+  background-image: url('https://img.freepik.com/premium-photo/culinary-inspiration-menu-recipe-banner-with-vibrant-spice-background-vertical-mobile-wallpaper_896558-36578.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   height: 80%;
