@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     try {
         const populatedrecipes = await Recipe.find({}).populate('owner');
-        
+
         res.render('recipes/index.ejs', { recipes: populatedrecipes });
     } catch (error) {
         console.log(error);
@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
         const formData = req.body;
 
         formData.owner = req.session.user._id;
-        
+
         await Recipe.create(formData);
 
         res.redirect('/recipes');
@@ -40,7 +40,7 @@ router.get("/:recipeId", async (req, res) => {
     try {
         const recipeId = req.params.recipeId;
         const recipe = await Recipe.findById(recipeId).populate('owner');
-        
+
         res.render('recipes/show.ejs', { recipe })
     } catch (error) {
         console.log(error);
@@ -60,15 +60,36 @@ router.get("/:recipeId/edit", async (req, res) => {
 });
 
 // PUT - update recipe
-router.put("/:recipeId", (req, res) => {
-    res.send("test");
-    
+router.put("/:recipeId", async (req, res) => {
+    try {
+        const recipe = await Recipe.findById(req.params.recipeId);
+        if (recipe.owner.equals(req.session.user._id)) {
+            await recipe.updateOne(req.body)
+            res.redirect('/recipes')
+        } else {
+            res.send("You don't have permission to do that.");
+        }
+    } catch (error) {
+        console.log(error);
+        res.redirect('/');
+    }
 });
 
-// PUT - update recipe
-router.delete("/:recipeId", (req, res) => {
-    res.send("test");
-    
+// DELETE - delete recipe
+router.delete("/:recipeId", async (req, res) => {
+    try {
+        const recipeId = req.params.recipeId;
+        const recipe = await Recipe.findById(recipeId);
+        if (recipe.owner.equals(req.session.user._id)) {
+            await recipe.deleteOne();
+            res.redirect('/recipes');
+        } else {
+            res.send("You don't have permission to do that");
+        }
+    } catch (error) {
+        console.log(error);
+        res.redirect('/');
+    }
 });
 
 

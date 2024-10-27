@@ -4,8 +4,14 @@ const Ingredient = require('../models/ingredient');
 const router = express.Router();
 
 // GET - index page
-router.get("/", (req, res) => {
-    res.send("ingredient index");
+router.get("/", async (req, res) => {
+    try {
+        const ingredients = await Ingredient.find({});
+        res.render('ingredients/index.ejs', { ingredients: ingredients });
+    } catch (error) {
+        console.log(error);
+        res.redirect('/')
+    }
 });
 
 // GET - new ingrident page
