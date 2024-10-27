@@ -16,9 +16,12 @@
   </div>
   <div class="card-container">
     <% ingredients.forEach((ingredient)=> { %>
-    <a href="/ingredients/<%= ingredient._id %>">
+    <div class="new-form-container">
       <h4><%= ingredient.name %> Ingredient</h4>
-    </a>
+      <form action="/ingredients/<%= ingredient._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete <%= ingredient.name %></button>
+      </form>
+    </div>
     <% }) %>
   </div>
 </body>

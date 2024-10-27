@@ -14,40 +14,35 @@ router.get("/", async (req, res) => {
     }
 });
 
-// GET - new ingrident page
-router.get("/new", (req, res) => {
-    res.send("ingredient new");
-    
+// GET - new ingreidents page
+router.get("/new", async (req, res) => {
+    res.render('ingredients/new.ejs');
 });
 
 // POST - create ingredient
 router.post("/", async (req, res) => {
-    res.send("ingrident create post");
-    
+    try {
+        const formData = req.body;
+
+        await Ingredient.create(formData);
+
+        res.redirect('/ingredients');
+    } catch (error) {
+        res.send(error)
+    }
 });
 
-// GET - show page
-router.get("/:ingredientId", (req, res) => {
-    res.send("ingrident show");
-    
-});
-
-// GET - edit page
-router.get("/:ingredientId/edit", (req, res) => {
-    res.send("ingredient edit page");
-    
-});
-
-// PUT - update ingredient
-router.put("/:ingredientId", (req, res) => {
-    res.send("ingredient update request");
-    
-});
-
-// PUT - update ingredient
-router.delete("/:ingredientId", (req, res) => {
-    res.send("test");
-    
+// DELETE - delete ingredient
+router.delete("/:ingredientId", async (req, res) => {
+    try {
+        const ingredientId = req.params.ingredientId;
+        const ingredient = await Ingredient.findById(ingredientId);
+        await ingredient.deleteOne();
+        res.redirect('/ingredients');
+    } catch (error) {
+        console.log(error);
+        res.redirect('/');
+    }
 });
 
 

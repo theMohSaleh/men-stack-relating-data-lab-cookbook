@@ -18,6 +18,12 @@
         <input type="text" name="name" id="name" value="<%= recipe.name %>" />
         <label for="instructions">Instructions:</label>
         <input type="text" name="instructions" id="instructions" value="<%= recipe.instructions %>"  />
+        <label for="ingredients">Add ingredients:</label>
+        <select name="ingredients" id="ingredients" multiple>
+          <% ingredients.forEach((ingredient) => { %>
+          <option value="<%= ingredient.name %>"><%= ingredient.name %></option>
+          <% }) %>
+        </select>
         <button type="submit">Edit recipe</button>
       </form>
     </div>

@@ -1,5 +1,6 @@
 const express = require('express');
 const Recipe = require('../models/recipe');
+const Ingredient = require('../models/ingredient');
 
 const router = express.Router();
 
@@ -16,8 +17,10 @@ router.get("/", async (req, res) => {
 });
 
 // GET - new recipe page
-router.get("/new", (req, res) => {
-    res.render('recipes/new.ejs');
+router.get("/new", async (req, res) => {
+    const ingredients = await Ingredient.find({});
+
+    res.render('recipes/new.ejs', { ingredients });
 });
 
 // POST - create recipe
@@ -39,7 +42,10 @@ router.post("/", async (req, res) => {
 router.get("/:recipeId", async (req, res) => {
     try {
         const recipeId = req.params.recipeId;
-        const recipe = await Recipe.findById(recipeId).populate('owner');
+        const recipe = await Recipe
+        .findById(recipeId)
+        .populate('owner')
+        .populate('ingredients');
 
         res.render('recipes/show.ejs', { recipe })
     } catch (error) {
@@ -92,5 +98,30 @@ router.delete("/:recipeId", async (req, res) => {
     }
 });
 
+// POST - add ingredients to recipe
+router.post('/:recipeId/ingredients/:ingredientId', async (req, res) => {
+    try {
+        await Recipe.findByIdAndUpdate(req.params.recipeId, {
+            $push: { ingredients: req.params.ingredientId },
+        });
+        res.redirect(`/recipes/${req.params.recipeId}`);
+    } catch (error) {
+        console.log(error);
+        res.redirect('/');
+    }
+});
+
+// DELETE - remove ingredients from recipe
+router.delete('/:recipeId/ingredients/:ingredientId', async (req, res) => {
+    try {
+        await Recipe.findByIdAndUpdate(req.params.recipeId, {
+            $pull: { ingredients: req.params.ingredientId },
+        });
+        res.redirect(`/recipes/${req.params.recipeId}`);
+    } catch (error) {
+        console.log(error);
+        res.redirect('/');
+    }
+});
 
 module.exports = router;
